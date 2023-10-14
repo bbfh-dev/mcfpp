@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "mcfpp"
+version = "0.1.0"
+description = "MCFunction++ is a beet plugin designed to ease the development of Minecraft data-packs."
+authors = ["BubbleFish <bbfh-dev@github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+black = "^23.9.1"
+beet = "^0.95.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
