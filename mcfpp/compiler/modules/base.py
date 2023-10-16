@@ -1,6 +1,8 @@
+from typing import Callable, cast
+
 from mcfpp.lang import Scoreboard
 from mcfpp.lib.tree import File, Node
-from mcfpp.utils import is_builtin, is_method, is_variable
+from mcfpp.utils import is_builtin, is_method, is_variable, path, split_path
 
 
 class BaseModule:
@@ -73,7 +75,11 @@ class BaseModule:
             result.append(c)
         return []
 
-    def __init__(self, prefix: str):
+    def file(self, name: str):
+        split = split_path(self.dir)
+        return f"{split[0]}:{path(*split[1:], name)}"
+
+    def __init__(self, prefix: str, fn_has_module: Callable):
         self.tree = Node(self.dir)
         self.prefix = prefix
 
