@@ -14,14 +14,13 @@ class Score(BaseModule):
 
     @override
     async def build(self):
-        root = Node("(namespace)")
-        root.add_branch("functions/load")
+        self.tree.add_branch("functions/load")
         for name, criteria in self.cls_variables().items():
             display_name = ""
             if has_custom_name(criteria):
                 display_name = NBT.string(criteria[1])
                 criteria = criteria[0]
-            root.as_branch("functions/load").file.add_head(
+            self.tree.as_branch("functions/load").file.add_head(
                 f"scoreboard objectives add {self.prefix}.{name} {criteria.value} {display_name}",
             )
-        return root
+        return self.tree
