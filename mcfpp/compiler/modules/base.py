@@ -61,7 +61,7 @@ class BaseModule:
 
     @property
     def dir(self):
-        return self.__class__.__dict__.get("dir", "<namespace>")
+        return self.__class__.__dict__.get("dir", "(namespace)")
 
     @classmethod
     def traverse(cls, /, until: type):
