@@ -44,6 +44,13 @@ class BaseModule:
     def cls_location(cls, /, until):
         return ".".join([i.__name__ for i in cls.traverse(until=until)])
 
+    @classmethod
+    def cls_parent(cls):
+        for module in cls.mro():
+            if module.cls_variables().get("builtin", False):
+                return cast(type[BaseModule], module)
+        return cls
+
     @property
     def variables(self):
         return self.cls_variables()
