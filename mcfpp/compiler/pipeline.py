@@ -55,7 +55,9 @@ class Pipeline:
 
     async def _build(self):
         tasks = []
-        for module in map(lambda x: x(self.prefix), self._modules):
+        for module in map(
+            lambda x: x(self.prefix, fn_has_module=self._has_module), self._modules
+        ):
             tasks.append(asyncio.create_task(module.build()))
         for tree in await asyncio.gather(*tasks):
             self._merge_trees(tree)
