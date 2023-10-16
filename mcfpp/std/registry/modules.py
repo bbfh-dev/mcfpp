@@ -4,7 +4,7 @@ from mcfpp.lang import Criteria
 
 @requires(Entity)
 class Var(Score):
-    player_id = Criteria.dummy(), "PlayerID"
+    player_id = Criteria.dummy()
     group_id = Criteria.dummy()
 
 
