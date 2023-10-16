@@ -23,7 +23,7 @@ class BaseModule:
         def op(self, score: Scoreboard, operations: Scoreboard):
             pass
 
-        def run_if(self, condition: str, lines: list[str]):
+        def run(self, execute: str, lines: list[str] | str):
             pass
 
     @classmethod
