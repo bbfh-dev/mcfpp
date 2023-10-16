@@ -81,6 +81,7 @@ class BaseModule:
 
     def __init__(self, prefix: str, fn_has_module: Callable):
         self.tree = Node(self.dir)
+        self._fn_has_module = fn_has_module
         self.prefix = prefix
 
     async def build(self):
