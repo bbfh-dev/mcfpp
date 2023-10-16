@@ -1,6 +1,5 @@
 from mcfpp.lang import Criteria
 from mcfpp.lib.nbt import NBT
-from mcfpp.lib.tree import Node
 from mcfpp.utils import override
 from .base import BaseModule
 
