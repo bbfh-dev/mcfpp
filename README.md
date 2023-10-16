@@ -1,5 +1,8 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+> **Important**
+> This is a **work-in-progress** project. You can't use it for your projects yet.
+
 # MCFunction++
 
 A [beet](https://github.com/mcbeet/beet) plugin designed to ease the development of [Minecraft data-packs](https://minecraft.wiki/w/Data_pack).
