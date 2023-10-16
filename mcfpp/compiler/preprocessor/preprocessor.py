@@ -1,9 +1,9 @@
 import os
 
 from beet import Context
-
 from mcfpp.lib.tree import Node
 from mcfpp.utils import is_empty
+
 from .runners import BaseRunner, Prettier
 
 
