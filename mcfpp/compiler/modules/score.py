@@ -10,6 +10,8 @@ def has_custom_name(criteria: tuple | Criteria):
 
 
 class Score(BaseModule):
+    builtin = True
+
     @override
     async def build(self):
         root = Node("(namespace)")

@@ -4,6 +4,8 @@ from mcfpp.utils import is_builtin, is_method, is_variable
 
 
 class BaseModule:
+    builtin = True
+
     class Source:
         def __init__(self):
             self._file = File([])
