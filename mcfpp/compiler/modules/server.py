@@ -1,5 +1,4 @@
-from mcfpp.lib.tree import Node
-from mcfpp.utils import override
+from mcfpp.utils import override, path
 from .base import BaseModule
 
 
