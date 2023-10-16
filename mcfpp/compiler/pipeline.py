@@ -42,6 +42,14 @@ class Pipeline:
         self._modules.extend(modules)
         return self
 
+    def _has_module(self, name: str):
+        for module in self._modules:
+            if type(module) is not type:
+                continue
+            if module.cls_parent().__name__ == name:
+                return True
+        return False
+
     def _merge_trees(self, tree: Node):
         skip = False
         for self_tree in self.trees:
