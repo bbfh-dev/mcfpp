@@ -35,8 +35,9 @@ class Preprocessor:
 
     def process(self):
         self._lines = self.file.lines
-        if self.config.get("prettier_code"):
-            self.add(Prettier)
-        self.run()
-        self.post()
+        if not is_empty(self._lines):
+            if self.config.get("prettier_code"):
+                self.add(Prettier)
+            self.run()
+            self.post()
         return self
