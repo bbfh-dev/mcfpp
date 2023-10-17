@@ -71,7 +71,7 @@ class Pipeline:
             self._merge_trees(tree)
         for tree in self.trees:
             for node in tree.walk():
-                node.name = alias(self.ctx, node)
+                node.name = alias(self.ctx, tree.extra, node)
             for branch in tree.branches:
                 node = tree.as_branch(re.sub(r"\w+:", "", branch))
                 if ":functions" in branch:

@@ -1,15 +1,18 @@
+import re
+
 from beet import Context
 
 from .node import Node
 
 
-def alias(ctx: Context, node: Node):
+def alias(ctx: Context, extra: dict[str, str], node: Node):
+    name = re.sub(r"[()]", "", node.name)
     aliases = {
-        "(namespace)": ctx.project_id,
-        "(~)": ctx.project_id,
-        "(this)": node.location,
-        "(.)": node.location,
+        "namespace": ctx.project_id,
+        "module": extra.get("parent").lower(),
+        "class": extra.get("this").lower(),
+        "this": node.location,
     }
-    if node.name in aliases.keys():
-        return aliases.get(node.name)
-    return node.name
+    if name in aliases.keys():
+        return aliases.get(name)
+    return name

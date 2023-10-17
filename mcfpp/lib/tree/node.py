@@ -12,6 +12,7 @@ class Node:
         self.parent = parent
         self.children: list["Node"] = []
         self.file = File(get_var(body, []))
+        self.extra = {}
 
     @property
     def depth(self):

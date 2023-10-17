@@ -83,6 +83,10 @@ class BaseModule:
         self.tree = Node(self.dir)
         self._fn_has_module = fn_has_module
         self.prefix = prefix
+        self.tree.extra = {
+            "parent": self.cls_parent().__name__,
+            "this": self.__class__.__name__,
+        }
 
     async def build(self):
         """Build the module tree"""
