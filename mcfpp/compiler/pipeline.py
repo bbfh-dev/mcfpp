@@ -18,6 +18,12 @@ class Pipeline:
         self._config: dict[str, bool] = {}
         self.trees: list[Node] = []
 
+    @property
+    def _module_instances(self):
+        return map(
+            lambda x: x(self.prefix, fn_has_module=self._has_module), self._modules
+        )
+
     def _set_property(self, key: str, value: bool):
         if self._config.get(key) is None:
             self._config[key] = value
@@ -50,25 +56,23 @@ class Pipeline:
                 return True
         return False
 
-    def _merge_trees(self, tree: Node):
-        skip = False
-        for self_tree in self.trees:
-            if self_tree.name == tree.name:
-                self_tree.merge(tree)
-                skip = True
-                break
-        if not skip:
-            self.trees.append(tree)
+    def _merge_trees(self, *trees: Node):
+        for tree in trees:
+            skip = False
+            for self_tree in self.trees:
+                if self_tree.name == tree.name:
+                    self_tree.merge(tree)
+                    skip = True
+                    break
+            if not skip:
+                self.trees.append(tree)
         return self
 
     async def _build(self):
-        tasks = []
-        for module in map(
-            lambda x: x(self.prefix, fn_has_module=self._has_module), self._modules
-        ):
-            tasks.append(asyncio.create_task(module.build()))
-        for tree in await asyncio.gather(*tasks):
-            self._merge_trees(tree)
+        tasks = [
+            asyncio.create_task(module.build()) for module in self._module_instances
+        ]
+        self._merge_trees(*await asyncio.gather(*tasks))
         for tree in self.trees:
             for node in tree.walk():
                 node.name = alias(self.ctx, tree.extra, node)
@@ -79,6 +83,7 @@ class Pipeline:
                         Preprocessor(node, self.ctx, self._config).process().code,
                         tags=node.file.tags,
                     )
+        return self
 
     def _include_std(self):
         if self._config.get("delay_load"):
